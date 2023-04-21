@@ -15,8 +15,8 @@ mongoose
     // Before adding any recipes to the database, let's remove all existing ones
     return Recipe.deleteMany();
   })
+
   .then(() => {
-    // Run your code here, after you have insured that the connection was made
     let recipe = {
       title: "cookies",
       cuisine: "basic",
@@ -25,9 +25,11 @@ mongoose
     return Recipe.create(recipe);
   })
 
+
   .then(() => {
     return Recipe.insertMany(data);
   })
+
 
   .then(() => {
     Recipe.find().then((recipesFromDB) => {
@@ -37,13 +39,15 @@ mongoose
     });
   })
 
+
   .then(() => {
     const query = { title: "Rigatoni alla Genovese" };
     return Recipe.findOneAndUpdate(query, { duration: 100 });
   })
-  .then(() => {
-    console.log("successfully updated duration");
+  .then((updatedRecipe) => {
+    console.log("successfully updated duration", updatedRecipe);
   })
+
 
   .then(() => {
     return Recipe.deleteOne({ title: "Carrot Cake" });
